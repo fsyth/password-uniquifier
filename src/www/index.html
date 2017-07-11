@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Unique Password Generator</title>
+  <link rel="stylesheet" href="action.css">
+</head>
+
+<body>
+
+  <div class="header content">
+    <h1>Uniquifier</h1>
+    <p>
+      Unique password generator.
+      <br>
+      <a title="To be published soon!">Get the extension here</a>
+    </p>
+  </div>
+
+  <div class="about content">
+    <h3 class="accordion">Why is this a thing?</h3>
+    <div>
+      <p>
+        It's annoying to come up with a unique password for every website.
+        You normally have to store them all in a secure database, or just not bother and use the same password for everything which is a security risk.
+      </p>
+    </div>
+    <h3 class="accordion">What does it do?</h3>
+    <div>
+      <p>
+        This simple program let's you use a single master password to generate unique passwords for anything.
+      </p>
+      <p>
+        It always generates the exact same password for the same inputs, so you don't need to store anything. Just remember the master password.
+      </p>
+    </div>
+    <h3 class="accordion">How does it work?</h3>
+    <div>
+      <p>
+        It takes your master password and the name of a website (or anything really), then passes them
+        through a one-way <a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">Cryptographic Hash Function</a> and maps the result onto a generated password.
+      </p>
+    </div>
+    <h3 class="accordion">Is it secure?</h3>
+    <div>
+      <p>
+        The Secure Hash Algorithm (SHA) is computationally irreversible* and guarantees that your master password or passwords for other websites cannot be obtained if one generated password is compromised.
+      </p>
+      <p>
+        *<span class="small">Provided that your master password is reasonably strong.</span>
+      </p>
+    </div>
+    <h3 class="accordion">Can I trust you?</h3>
+    <div>
+      <p>
+        All steps have been taken to ensure this is secure and safe to use. No sensitive data ever leaves this page.
+      </p>
+      <p>
+        We will never ask for your username. Without it, any passwords here are worthless.
+      </p>
+      <p>
+        The code is all open source and available on <a href="https://github.com/fsyth/password-uniquifier">GitHub</a> so anyone can check that it doesn't do anything malicious.
+      </p>
+    </div>
+    <h3 class="accordion">Why do I need to set a master password?</h3>
+    <div>
+      <p>
+        Passwords are generated using your master password as part of the input to the hashing algorithm. Therefore if you enter a different master password, a different password will be generated.
+      </p>
+      <p>
+        If you were to typo your master password accidentally, passwords generated using it would be impossible to reproduce later.
+      </p>
+      <p>
+        To solve this, the program has you set a master password with an additional 'confirm password' field to prevent typos.
+      </p>
+      <p>
+        If you tick 'remember password', your master password will be securely hashed and stored locally on your computer. This means that the password cannot be retrieved, but anything you enter can be checked to see if it matches. This way you can be warned if you accidentally make a typo without your master password being known.
+      </p>
+    </div>
+    <div class="triangle"></div>
+  </div>
+  <div class="forms content">
+    <div id="pw-set" class="hidden">
+      <span class="hidden back">
+        <a>&lt; back</a>
+        &nbsp;&nbsp;
+      </span>
+      <a class="about-btn">About</a>
+      <br><br>
+      <label>Master password: </label>
+      <i title="This master password will be used as a seed to generate unique passwords for different websites">?</i>
+      <input id="master-set-1" type="password" autofocus>
+      <br>
+      <label>Confirm password: </label>
+      <input id="master-set-2" type="password">
+      <br>
+      <button id="pw-submit-btn">Set password</button>
+      <br>
+      <input id="remember-password" type="checkbox" checked>
+      <label>Store password? </label>
+      <i title="Your master password will be securely hashed and stored. Whenever you enter your master password, its hash will be compared to the stored hash to verify you typed your master password correctly. Forgotten master passwords cannot be retrieved. If you forget your master password, any passwords generated using it will be lost.">?</i>
+      <p id="pw-empty" class="hidden">Please fill in both password fields</p>
+      <p id="pw-mismatch" class="hidden">The passwords you entered do not match</p>
+    </div>
+
+    <div id="main" class="hidden">
+      <span class="about-btn">
+        <a>About</a>
+        &nbsp;&nbsp;
+      </span>
+      <a id="pw-change">Change master password</a>
+      &nbsp;&nbsp;
+      <a id="settings-btn">Settings</a>
+      <i title="Note that you will need your old master password and settings to regenerate previously generated passwords">?</i>
+      <br><br>
+      <label>Master password: </label>
+      <input id="master" type="password" placeholder="" spellcheck="false" autofocus>
+      <br>
+      <p id="pw-incorrect" class="hidden">
+        The password you entered is different from your master password.
+      </p>
+      <label>For: </label>
+      <input id="site-host" type="text" placeholder="e.g. www.example.com" spellcheck="false">
+      <br>
+      <br>
+      <label>Generated password: </label>
+      <input id="pw-result" type="text" readonly>
+    </div>
+
+    <div id="settings" class="hidden">
+      <a class="back">&lt; back</a>
+      <br><br>
+      <label>Password length: </label>
+      <i title="It is recommended to use at least 12 characters if you are not using all the available character types">?</i>
+      <br>
+      <select id="pw-length">
+        <option value="8">8</option>
+        <option value="12" selected>12</option>
+        <option value="16">16</option>
+      </select> characters <br>
+      <label>Must contain at least one: </label>
+      <i title="It is recommended to use at least 3 character groups. If no character groups are enabled, a hex dump will be produced instead.">?</i>
+      <br>
+      <input id="lowercase" type="checkbox" checked> Lowercase letter<br>
+      <input id="uppercase" type="checkbox" checked> Uppercase letter<br>
+      <input id="number" type="checkbox" checked> Number<br>
+      <input id="symbol" type="checkbox" checked> Symbol
+      <i title="Symbols include: !&quot;#$%&'()*+,-./:;<=>?@[\]^_`{|}~">?</i>
+    </div>
+  </div>
+
+  <script src="action.js"></script>
+
+</body>
+
+</html>

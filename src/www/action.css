@@ -1,0 +1,213 @@
+/* Body and default styles */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", "Tahoma", sans-serif;
+  font-size: 75%;
+  background-color: #DDD;
+}
+
+body.extension {
+  background-color: #EEE;
+}
+
+/* Content blocks */
+
+.content {
+  padding: 0;
+  margin: 0 auto;
+  width: auto;
+  width: 240px;
+  min-width: 240px;
+  padding: 5px;
+}
+
+/* For webpage, use a slightly wider padded wrapper */
+
+.webpage .content {
+  width: 300px;
+  padding: 5px 60px;
+  background-color: #FFF;
+  box-shadow: 0px 1px 3px -1px #777;
+}
+
+.webpage .forms.content {
+  background-color: #EEE;
+  padding: 20px 60px;
+}
+
+/* Question mark hover tool tips */
+
+.forms {
+  position: relative;
+}
+
+.forms i {
+  color: #777;
+  border: 1px solid #777;
+  border-radius: 50%;
+  display: inline-block;
+  font-size: 70%;
+  width: 1.25em;
+  height: 1.25em;
+  text-align: center;
+  font-style: normal;
+  font-weight: bold;
+  cursor: pointer;
+  content: "?";
+  float: right;
+  margin: 3px;
+  transition: color 0.4s, border-color 0.4s;
+  user-select: none;
+  position: absolute;
+  right: 5px;
+}
+
+.webpage .forms i {
+  /* Account for extra padding */
+  right: 60px;
+}
+
+.forms i:hover {
+  color: #0AF;
+  border-color: #0AF;
+}
+
+/* Input styles */
+
+button,
+select {
+  margin: 5px 0;
+  font-size: 100%;
+  font-family: "Segoe UI", "Tahoma", sans-serif;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 97.5%;
+  margin: 4px 0;
+}
+
+input[type="checkbox"] {
+  position: relative;
+  top: 2px;
+}
+
+/* Hidden, used for single page app design */
+
+.hidden {
+  display: none;
+}
+
+/* Links */
+
+a {
+  color: #777;
+  text-decoration: underline;
+  cursor: pointer;
+  margin: 5px 0;
+  font-size: 90%;
+  transition: color 0.4s;
+  user-select: none;
+}
+
+a:hover {
+  color: #0AF;
+  text-decoration: none;
+}
+
+/* Error description paras*/
+
+.forms p {
+  color: #A22;
+}
+
+/* Indent settings inputs */
+
+#settings select,
+#settings input {
+  margin-left: 20px;
+}
+
+/* Improve character readability of generate password */
+
+#pw-result {
+  font-family: monospace;
+}
+
+/* Extension should show only forms section */
+
+.extension .header,
+.extension .about {
+  display: none;
+}
+
+/* Header and About styles */
+
+.header {
+  text-align: center;
+}
+
+.about p {
+  text-align: justify;
+}
+
+.small {
+  font-size: 85%;
+}
+
+/* About button to show webpage stuff in extension */
+
+.webpage .about-btn {
+  display: none;
+}
+
+/* Accordion CSS */
+
+.accordion {
+  transition: color 0.4s, background-color 0.2s;
+  cursor: pointer;
+  border-radius: 2px;
+  user-select: none;
+  margin: 4px 0;
+  padding: 4px 0;
+}
+
+.accordion::after {
+  margin-top: 2px;
+  margin-right: 10px;
+  float: right;
+  font-family: monospace;
+}
+
+.accordion:hover::after {
+  content: '+';
+}
+
+.accordion.active::after {
+  content: '-';
+}
+
+.accordion:hover {
+  color: #0AF;
+  background-color: #EEE;
+}
+
+.accordion:not(.active) + * {
+  display: none;
+}
+
+/* Triangle */
+
+.webpage .triangle {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 59px 420px;
+  border-color: transparent transparent #EEE transparent;
+  position: relative;
+  left: -60px;
+  bottom: -5px;
+  z-index: 10;
+}
