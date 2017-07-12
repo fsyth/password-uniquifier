@@ -1,6 +1,6 @@
 # Uniquify
 ###### Unique password generator
-###### [Try it here](https://rawgit.com/fsyth/password-uniquifier/master/src/www/index.html)
+###### [Try it here](https://fsyth.github.io/password-uniquifier)
 
 ## Why is this a thing?
 It's annoying to come up with a unique password for every website. You normally have to store them all in a secure database, or just not bother and use the same password for everything which is a security risk.
