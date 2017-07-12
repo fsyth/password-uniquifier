@@ -3,7 +3,7 @@
 
   "name": "Password Uniquifier",
   "description": "Generates unique passwords for any site you visit from a master password",
-  "version": "0.1",
+  "version": "0.1.1",
 
   "page_action": {
     "default_title": "Generate password for this site",
