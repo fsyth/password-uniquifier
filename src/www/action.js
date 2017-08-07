@@ -24,7 +24,6 @@
   };
 
 
-
   /*
    *  Runs a SHA hashing algorithm on the input str and calls a callback once
    *  the result has been computed.
@@ -82,7 +81,15 @@
     }
 
     // Encode the string into a buffer of utf-8 code points
-    var buffer = new TextEncoder('utf-8').encode(msg);
+    var buffer;
+    try {
+      // TextEncoder is an experimental API not supported by all browsers
+      buffer = new TextEncoder('utf-8').encode(msg);
+    } catch (e) {
+      // Use the following as a workaround if TextEncoder is unavailable
+      buffer = new Uint8Array(msg.length);
+      buffer.map((e, i) => msg.charCodeAt(i));
+    }
 
     // Pass the buffer into the crypto framework for hashing,
     // map the result onto characters and join into a string,
@@ -345,10 +352,20 @@
         };
 
         this.set = (items, callback = noop) => {
-          for (let key in items) {
-            window.localStorage.setItem(key, items[key]);
+          // Attempt to store settings in local storage.
+          // This may fail if the browser has this feature disabled. For example
+          // in Safari Private browsing, a QuotaExceededError is thrown.
+          // In this case, simply don't bother storing anything and continue.
+          try {
+            for (let key in items) {
+              window.localStorage.setItem(key, items[key]);
+            }
+          } catch(e) {
+            // Log the error if there is
+            console.log('Could not store data. Continuing anyway.');
+          } finally {
+            callback();
           }
-          callback();
         };
 
         this.clear = (callback = noop) => {
