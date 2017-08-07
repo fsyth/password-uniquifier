@@ -373,8 +373,18 @@
     // Environment - 'extension' or 'webpage'
     // Code is reused for the webpage version and extension version.
     // Some parts of the code need to know which one.
-    var environment = chrome && chrome.runtime && chrome.runtime.id ?
-                        'extension' : 'webpage';
+    var environment;
+    try {
+      // For Chrome browser, `chrome` will exist. A runtime id implies
+      // this is running as an extension.
+      environment = chrome && chrome.runtime && chrome.runtime.id ?
+          'extension' : 'webpage';
+    } catch (e) {
+      // Some browsers will simply throw an extension is chrome is undefined
+      console.error(e);
+      environment = 'webpage';
+    }
+
 
     // Add a class to the body for environment specific CSS
     document.body.classList.add(environment);
